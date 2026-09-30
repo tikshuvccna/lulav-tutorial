@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ארבעת המינים — מדריך תלת־ממדי</title>
+<meta name="description" content="משחק לימודי תלת־ממדי: איך נוטלים את ארבעת המינים — הרכבה, אחיזה, ברכה, נענועים ונענוע בהלל, לפי נוסחי אשכנז, ספרד וחב&quot;ד.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+<header id="topbar">
+  <div class="brand">🌿 <span>ארבעת המינים</span></div>
+  <div id="chapterName"></div>
+  <div id="dots"></div>
+  <div class="grow"></div>
+  <button id="nusachBtn" class="chipbtn" title="החלפת נוסח"></button>
+  <div class="scorebox" title="ניקוד">⭐ <b id="score">0</b></div>
+  <button id="muteBtn" class="iconbtn" title="השתקה">🔊</button>
+  <button id="menuBtn" class="iconbtn" title="תפריט פרקים">☰</button>
+</header>
+<aside id="panel">
+  <div id="pscroll">
+    <div id="stepTag"></div>
+    <h2 id="stepTitle"></h2>
+    <div id="stepBody"></div>
+    <div id="task"></div>
+    <div id="fb"></div>
+  </div>
+  <nav id="nav">
+    <button id="prev" class="ghost">▶ הקודם</button>
+    <button id="hint" class="ghost">💡 רמז</button>
+    <button id="next" class="primary">הבא ◀</button>
+  </nav>
+</aside>
+<div id="overlay"></div>
+<noscript><p style="position:fixed;inset:0;background:#fff;padding:2rem">המשחק דורש JavaScript ו‑WebGL.</p></noscript>
+<script src="dist/game.js"></script>
+</body>
+</html>

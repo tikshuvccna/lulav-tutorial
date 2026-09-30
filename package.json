@@ -1,0 +1,26 @@
+{
+  "name": "lulav-tutorial",
+  "version": "1.0.0",
+  "description": "משחק תלת־ממדי ללימוד נטילת ארבעת המינים",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --minify --format=iife --target=es2020 --outfile=dist/game.js",
+    "dev": "esbuild src/main.js --bundle --sourcemap --format=iife --target=es2020 --outfile=dist/game.js --watch --servedir=.",
+    "start": "npm run build && python3 -m http.server 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tikshuvccna/lulav-tutorial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tikshuvccna/lulav-tutorial/issues"
+  },
+  "homepage": "https://github.com/tikshuvccna/lulav-tutorial#readme",
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "three": "^0.186.1"
+  }
+}
