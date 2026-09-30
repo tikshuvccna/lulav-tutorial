@@ -21,6 +21,14 @@ function boot() {
     world.setViewShift(wide ? Math.round(r.width / 2 + 8) : 0, wide ? 0 : Math.round(r.height / 2));
   };
   addEventListener('resize', fit);
+  const panel = document.getElementById('panel');
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(panel);
+  const fold = document.getElementById('fold');
+  fold.onclick = () => {
+    const f = panel.classList.toggle('folded');
+    fold.textContent = f ? '▴' : '▾';
+    fit();
+  };
   fit();
   world.start();
   world.setCamera('hero', 0);

@@ -239,7 +239,7 @@ function hallelPlayer(ctx, mode, onFinish) {
       cur = idx;
       if (cur >= 0) {
         els[cur].row.classList.add('active');
-        els[cur].row.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        box.scrollTo({ top: els[cur].row.offsetTop - box.clientHeight / 2 + els[cur].row.clientHeight / 2, behavior: 'smooth' });
       }
     }
     if (cur >= 0) {
@@ -288,7 +288,9 @@ function hallelPlayer(ctx, mode, onFinish) {
     lines,
     totalStars,
   };
-  ctx.onExit(() => api.stop());
+  const bodyEl = document.getElementById('stepBody');
+  bodyEl.classList.add('mob-hide');
+  ctx.onExit(() => { api.stop(); bodyEl.classList.remove('mob-hide'); });
   return api;
 }
 
@@ -974,7 +976,7 @@ export function buildChapters() {
           },
           {
             title: 'תרגול: נענעו בסדר הנכון',
-            body: `<p>נענעו בסדר של נוסח <b>${N.name}</b> — לחצו על הכפתורים (או במקלדת: W קדימה · D ימין · S אחורה · A שמאל · E מעלה · Q מטה).</p>`,
+            body: `<p>נענעו בסדר של נוסח <b>${N.name}</b> — לחצו על הכפתורים <span class="kbd">(או במקלדת: W קדימה · D ימין · S אחורה · A שמאל · E מעלה · Q מטה)</span>.</p>`,
             hint: (ctx) => {
               const i = ctx.shared.idx || 0;
               ctx.info(`הכיוון הבא: <b>${DIRS[N.order[i]].name}</b> (${DIRS[N.order[i]].rel})`);
@@ -991,6 +993,7 @@ export function buildChapters() {
                 pad.append(b);
               };
               mk('east', 'n'); mk('north', 'w'); mk('south', 'e'); mk('west', 's'); mk('up', 'u'); mk('down', 'd');
+              pad.classList.add('sticky');
               ctx.add(pad);
               let busy = false;
               const go = async (k) => {
@@ -1083,12 +1086,12 @@ export function buildChapters() {
               holdScene(ctx, { inverted: false, cam: 'hero', markers: true });
               const p = hallelPlayer(ctx, 'guide', () => { ctx.good('זה הסדר המלא של ההלל בנוסח שלכם.'); ctx.complete(80); });
               ctx.add(p.el);
-              ctx.add(h('div', { class: 'row' }, h('button', { class: 'primary', onclick: () => { sfx.click(); p.start(); } }, '▶ הפעילו'), h('button', { class: 'ghost', onclick: () => { sfx.click(); p.start(); } }, '↻ שוב')));
+              ctx.add(h('div', { class: 'row sticky' }, h('button', { class: 'primary', onclick: () => { sfx.click(); p.start(); } }, '▶ הפעילו'), h('button', { class: 'ghost', onclick: () => { sfx.click(); p.start(); } }, '↻ שוב')));
             },
           },
           {
             title: 'אתגר: נענעו בזמן הנכון',
-            body: `<p>ההלל מתקדם — <b>לחצו "נענעו" (או רווח)</b> בכל פעם שצריך לנענע בנוסח <b>${N.name}</b>. אל תנענעו במקומות אחרים! מותר עד 5 טעויות.</p>`,
+            body: `<p>ההלל מתקדם — <b>לחצו "נענעו"<span class="kbd"> (או רווח)</span></b> בכל פעם שצריך לנענע בנוסח <b>${N.name}</b>. אל תנענעו במקומות אחרים! מותר עד 5 טעויות.</p>`,
             enter(ctx) {
               const w = ctx.w;
               holdScene(ctx, { inverted: false, cam: 'hero', markers: true });
@@ -1098,7 +1101,7 @@ export function buildChapters() {
               });
               ctx.add(p.el);
               const shake = h('button', { class: 'primary big shake', onclick: () => p.press() }, '🤲 נענעו!');
-              ctx.add(h('div', { class: 'row' }, shake, h('button', { class: 'ghost', onclick: () => { sfx.click(); p.start(); } }, '▶ התחילו / ↻')));
+              ctx.add(h('div', { class: 'row sticky' }, shake, h('button', { class: 'ghost', onclick: () => { sfx.click(); p.start(); } }, '▶ התחילו / ↻')));
               ctx.onKey((e) => { if (e.code === 'Space') { p.press(); return true; } return false; });
             },
           },
